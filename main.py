@@ -46,8 +46,7 @@ def create_agent(
 ) -> str:
     """Create a new Mistral agent"""
     try:
-        # Simple synchronous version for now
-        import requests
+        import httpx
         
         headers = {
             "Authorization": f"Bearer {MISTRAL_API_KEY}",
@@ -61,7 +60,8 @@ def create_agent(
             "instructions": instructions
         }
         
-        response = requests.post(f"{MISTRAL_BASE_URL}/agents", json=data, headers=headers)
+        with httpx.Client() as client:
+            response = client.post(f"{MISTRAL_BASE_URL}/agents", json=data, headers=headers)
         
         if response.status_code == 200:
             agent_data = response.json()
@@ -83,14 +83,15 @@ def create_agent(
 def list_agents() -> str:
     """List all Mistral agents"""
     try:
-        import requests
+        import httpx
         
         headers = {
             "Authorization": f"Bearer {MISTRAL_API_KEY}",
             "Content-Type": "application/json"
         }
         
-        response = requests.get(f"{MISTRAL_BASE_URL}/agents", headers=headers)
+        with httpx.Client() as client:
+            response = client.get(f"{MISTRAL_BASE_URL}/agents", headers=headers)
         
         if response.status_code == 200:
             data = response.json()
@@ -121,14 +122,15 @@ def delete_agent(
 ) -> str:
     """Delete a Mistral agent"""
     try:
-        import requests
+        import httpx
         
         headers = {
             "Authorization": f"Bearer {MISTRAL_API_KEY}",
             "Content-Type": "application/json"
         }
         
-        response = requests.delete(f"{MISTRAL_BASE_URL}/agents/{agent_id}", headers=headers)
+        with httpx.Client() as client:
+            response = client.delete(f"{MISTRAL_BASE_URL}/agents/{agent_id}", headers=headers)
         
         if response.status_code in [200, 204]:
             return f"✅ Agent '{agent_id}' supprimé avec succès !"
@@ -147,14 +149,15 @@ def search_agent(
 ) -> str:
     """Search for an agent by name"""
     try:
-        import requests
+        import httpx
         
         headers = {
             "Authorization": f"Bearer {MISTRAL_API_KEY}",
             "Content-Type": "application/json"
         }
         
-        response = requests.get(f"{MISTRAL_BASE_URL}/agents", headers=headers)
+        with httpx.Client() as client:
+            response = client.get(f"{MISTRAL_BASE_URL}/agents", headers=headers)
         
         if response.status_code == 200:
             data = response.json()
