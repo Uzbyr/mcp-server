@@ -1,16 +1,17 @@
-# 🔌 MCP Server - Mistral Agent Manager
+# 🌐 FastAPI Server - Mistral Agent Manager
 
-Ce dossier contient le serveur MCP (Model Context Protocol) pour la gestion des agents Mistral via Le Chat.
+Ce dossier contient le serveur FastAPI pour la gestion des agents Mistral via API REST.
 
 ## 📁 Structure
 
 ```
 mcp-server/
-├── main.py                # Serveur MCP principal (FastMCP)
-├── simple_server.py       # Serveur MCP simple (stdio)
-├── test_mcp.py           # Tests du serveur MCP
+├── main.py                # Serveur FastAPI principal
+├── simple_server.py       # Serveur MCP simple (stdio) - ancien
+├── test_mcp.py           # Tests du serveur MCP - ancien
 ├── pyproject.toml        # Configuration du projet
 ├── uv.lock              # Lock file des dépendances
+├── .env                 # Variables d'environnement
 ├── .python-version      # Version Python
 ├── .gitignore          # Fichiers à ignorer
 └── .venv/              # Environnement virtuel Python
@@ -32,11 +33,7 @@ mcp-server/
 
 3. **Démarrer le serveur MCP :**
    ```bash
-   # Option 1: Serveur FastMCP (HTTP)
-   uv run main.py
-   
-   # Option 2: Serveur simple (stdio)
-   uv run python simple_server.py
+   uv run python main.py
    ```
 
 ## 🔧 Utilisation avec l'inspecteur MCP
@@ -48,18 +45,25 @@ mcp-server/
 
 2. **Se connecter au serveur :**
    - **Transport** : `stdio`
-   - **Command** : `uv run python simple_server.py`
+   - **Command** : `uv run python main.py`
    - **Working Directory** : `/Users/yoandicosmo/Documents/LeChat MCP Hack/mcp-server`
 
-3. **Ou utiliser HTTP :**
-   - **Transport** : `Streamable HTTP`
-   - **URL** : `http://127.0.0.1:3000/mcp`
+3. **Accéder à l'interface :**
+   - **MCP Inspector** : http://localhost:6274 (quand l'inspecteur est lancé)
 
 ## 🛠️ Outils disponibles
 
 - ✅ **`create_agent`** - Créer un nouvel agent Mistral
 - ✅ **`list_agents`** - Lister tous les agents
+- ✅ **`get_agent_details`** - Obtenir les détails d'un agent
 - ✅ **`delete_agent`** - Supprimer un agent par ID
+- ✅ **`search_agent`** - Rechercher un agent par nom
+
+## 🔧 Configuration
+
+1. **Variables d'environnement** : Configurez `MISTRAL_API_KEY` dans `.env`
+2. **Transport** : Le serveur utilise stdio pour la communication MCP
+3. **API Mistral** : Intégration complète avec l'API Mistral
 
 ## 🔗 Intégration avec Le Chat
 
