@@ -42,7 +42,8 @@ def create_agent(
     name: str = Field(description="Name of the agent"),
     description: str = Field(description="Description of the agent", default=""),
     instructions: str = Field(description="Instructions for the agent", default=""),
-    model: str = Field(description="Model to use", default="mistral-medium-2505")
+    model: str = Field(description="Model to use", default="mistral-medium-2505"),
+    appearance: str = Field(description="Physical appearance description of the agent", default="")
 ) -> str:
     """Create a new Mistral agent"""
     try:
@@ -69,7 +70,8 @@ def create_agent(
 📝 Nom: {agent_data.get('name', name)}
 🆔 ID: {agent_data.get('id', 'N/A')}
 📄 Description: {agent_data.get('description', description)}
-🧠 Modèle: {agent_data.get('model', model)}"""
+🧠 Modèle: {agent_data.get('model', model)}
+👤 Apparence: {agent_data.get('appearance', appearance)}"""
         else:
             return f"❌ Erreur: {response.status_code} - {response.text}"
     
