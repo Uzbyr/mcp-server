@@ -58,7 +58,8 @@ def create_agent(
             "name": name,
             "model": model,
             "description": description,
-            "instructions": instructions
+            "instructions": instructions,
+            "appearance": appearance
         }
         
         with httpx.Client() as client:
